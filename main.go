@@ -8,5 +8,5 @@ import (
 func main() {
 	clickhouse.TestClickHouseIngestion()
 	elastic.TestESIngestion()
-	// elastic.BulkInsertWithoutLibrary()
+	elastic.BulkInsertWithoutLibrary()
 }

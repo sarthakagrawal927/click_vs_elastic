@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"fp/chvses/pkg/constants"
+	"fp/chvses/pkg/types"
 	"fp/chvses/pkg/utils"
 	"log"
 	"sync"
@@ -18,17 +19,10 @@ import (
 
 const ES_IDX_NAME = "test_index"
 
-type Person struct {
-	ID       int     `json:"id"`
-	Age      int     `json:"age"`
-	Name     string  `json:"name"`
-	Height   float64 `json:"height"`
-	Weight   int     `json:"weight"`
-	IsActive int     `json:"is_active"`
-}
-
 func bulkIndexHandler() error {
-	esClient, err := elasticsearch.NewClient(elasticsearch.Config{})
+	esClient, err := elasticsearch.NewClient(elasticsearch.Config{
+		Addresses: []string{"http://127.0.0.1:9210"},
+	})
 	if err != nil {
 		return err
 	}
@@ -53,7 +47,7 @@ func bulkInsertMany(bi *esutil.BulkIndexer) error {
 	defer (*bi).Close(ctx)
 	defer utils.Timer("[ES] bulkInsertMany")()
 	start := time.Now().UTC()
-	data, err := json.Marshal(&Person{
+	data, err := json.Marshal(&types.Person{
 		ID:       1,
 		Age:      20,
 		Name:     "John Doe",
