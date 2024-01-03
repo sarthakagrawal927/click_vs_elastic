@@ -32,6 +32,18 @@ create table fp.index_test (
 docker run --rm --name elasticsearch_container -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" elasticsearch:8.8.0
 ```
 
+Cluster Mode:
+```bash
+docker-compose up
+```
+
+[Track Writes node wise](http://localhost:9200/_cat/thread_pool/write?v)
+
+Stats:
+```bash
+docker stats node1 node2 node3
+```
+
 Rest Endpoints:
 
 To Count
