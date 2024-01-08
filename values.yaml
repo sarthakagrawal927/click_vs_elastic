@@ -1,0 +1,44 @@
+---
+# Permit co-located instances for solitary minikube virtual machines.
+antiAffinity: "soft"
+
+# Shrink default JVM heap.
+esJavaOpts: "-Xmx128m -Xms128m"
+
+replicas: 3
+minimumMasterNodes: 3
+clusterHealthCheckParams: 'wait_for_status=yellow&timeout=5s'
+apiVersion: v1
+
+esConfig:
+  elasticsearch.yml: |
+    xpack.security.enabled: false
+
+kind: PersistentVolume
+metadata:
+  name: pv0001
+spec:
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 5Gi
+  hostPath:
+    path: /data/pv0001/
+
+# Allocate smaller chunks of memory per pod.
+resources:
+  requests:
+    cpu: "100m"
+    memory: "1G"
+  limits:
+    cpu: "1000m"
+    memory: "1G"
+
+# Request smaller persistent volumes.
+volumeClaimTemplate:
+  accessModes: [ "ReadWriteMany" ]
+  storageClassName: "standard"
+  resources:
+    requests:
+      storage: 100M
+
