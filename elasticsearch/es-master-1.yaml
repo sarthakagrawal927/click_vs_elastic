@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: elasticsearch-local
+  name: node1
+  labels:
+    component: node1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: node1
+  template:
+    metadata:
+      namespace: elasticsearch-local
+      labels:
+        component: node1
+    spec:
+      containers:
+        - env:
+            - name: ES_JAVA_OPTS
+              value: -Xms512m -Xmx512m
+            - name: cluster.initial_master_nodes
+              value: node1,node2
+            - name: cluster.name
+              value: es-docker-cluster
+            - name: discovery.seed_hosts
+              value: node2
+            - name: node.name
+              value: node1
+            - name: xpack.security.enabled
+              value: "false"
+          image: docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+          name: node1
+          volumeMounts:
+            - name: ess-pvc
+              mountPath: /usr/share/elasticsearch/data
+      volumes:
+        - name: ess-pvc
+      restartPolicy: Always

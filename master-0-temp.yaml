@@ -1,0 +1,610 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: elasticsearch-master-0
+  generateName: elasticsearch-master-
+  namespace: default
+  uid: b551c564-5f93-4f98-8731-80b7f066ccc6
+  resourceVersion: '18368'
+  creationTimestamp: '2024-01-08T13:23:43Z'
+  labels:
+    app: elasticsearch-master
+    apps.kubernetes.io/pod-index: '0'
+    chart: elasticsearch
+    controller-revision-hash: elasticsearch-master-84f8cccb97
+    release: elasticsearch
+    statefulset.kubernetes.io/pod-name: elasticsearch-master-0
+  annotations:
+    configchecksum: d9df7552a0a018b2f9f12fc4e9f161c978aa773de39ccc7755dde7ddbe2ba92
+  ownerReferences:
+    - apiVersion: apps/v1
+      kind: StatefulSet
+      name: elasticsearch-master
+      uid: 09e0a985-e3ba-4b2f-a581-daa6396d0e06
+      controller: true
+      blockOwnerDeletion: true
+  managedFields:
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: v1
+      time: '2024-01-08T13:23:43Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:configchecksum: {}
+          f:generateName: {}
+          f:labels:
+            .: {}
+            f:app: {}
+            f:apps.kubernetes.io/pod-index: {}
+            f:chart: {}
+            f:controller-revision-hash: {}
+            f:release: {}
+            f:statefulset.kubernetes.io/pod-name: {}
+          f:ownerReferences:
+            .: {}
+            k:{"uid":"09e0a985-e3ba-4b2f-a581-daa6396d0e06"}: {}
+        f:spec:
+          f:affinity:
+            .: {}
+            f:podAntiAffinity:
+              .: {}
+              f:preferredDuringSchedulingIgnoredDuringExecution: {}
+          f:automountServiceAccountToken: {}
+          f:containers:
+            k:{"name":"elasticsearch"}:
+              .: {}
+              f:env:
+                .: {}
+                k:{"name":"ELASTIC_PASSWORD"}:
+                  .: {}
+                  f:name: {}
+                  f:valueFrom:
+                    .: {}
+                    f:secretKeyRef: {}
+                k:{"name":"ES_JAVA_OPTS"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"cluster.initial_master_nodes"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"cluster.name"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"discovery.seed_hosts"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"network.host"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"node.name"}:
+                  .: {}
+                  f:name: {}
+                  f:valueFrom:
+                    .: {}
+                    f:fieldRef: {}
+                k:{"name":"node.roles"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"xpack.security.enabled"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"xpack.security.http.ssl.certificate"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"xpack.security.http.ssl.certificate_authorities"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"xpack.security.http.ssl.enabled"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"xpack.security.http.ssl.key"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"xpack.security.transport.ssl.certificate"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"xpack.security.transport.ssl.certificate_authorities"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"xpack.security.transport.ssl.enabled"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"xpack.security.transport.ssl.key"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+                k:{"name":"xpack.security.transport.ssl.verification_mode"}:
+                  .: {}
+                  f:name: {}
+                  f:value: {}
+              f:image: {}
+              f:imagePullPolicy: {}
+              f:name: {}
+              f:ports:
+                .: {}
+                k:{"containerPort":9200,"protocol":"TCP"}:
+                  .: {}
+                  f:containerPort: {}
+                  f:name: {}
+                  f:protocol: {}
+                k:{"containerPort":9300,"protocol":"TCP"}:
+                  .: {}
+                  f:containerPort: {}
+                  f:name: {}
+                  f:protocol: {}
+              f:readinessProbe:
+                .: {}
+                f:exec:
+                  .: {}
+                  f:command: {}
+                f:failureThreshold: {}
+                f:initialDelaySeconds: {}
+                f:periodSeconds: {}
+                f:successThreshold: {}
+                f:timeoutSeconds: {}
+              f:resources:
+                .: {}
+                f:limits:
+                  .: {}
+                  f:cpu: {}
+                  f:memory: {}
+                f:requests:
+                  .: {}
+                  f:cpu: {}
+                  f:memory: {}
+              f:securityContext:
+                .: {}
+                f:capabilities:
+                  .: {}
+                  f:drop: {}
+                f:runAsNonRoot: {}
+                f:runAsUser: {}
+              f:terminationMessagePath: {}
+              f:terminationMessagePolicy: {}
+              f:volumeMounts:
+                .: {}
+                k:{"mountPath":"/usr/share/elasticsearch/config/certs"}:
+                  .: {}
+                  f:mountPath: {}
+                  f:name: {}
+                  f:readOnly: {}
+                k:{"mountPath":"/usr/share/elasticsearch/config/elasticsearch.yml"}:
+                  .: {}
+                  f:mountPath: {}
+                  f:name: {}
+                  f:subPath: {}
+                k:{"mountPath":"/usr/share/elasticsearch/data"}:
+                  .: {}
+                  f:mountPath: {}
+                  f:name: {}
+          f:dnsPolicy: {}
+          f:enableServiceLinks: {}
+          f:hostname: {}
+          f:initContainers:
+            .: {}
+            k:{"name":"configure-sysctl"}:
+              .: {}
+              f:command: {}
+              f:image: {}
+              f:imagePullPolicy: {}
+              f:name: {}
+              f:resources: {}
+              f:securityContext:
+                .: {}
+                f:privileged: {}
+                f:runAsUser: {}
+              f:terminationMessagePath: {}
+              f:terminationMessagePolicy: {}
+          f:restartPolicy: {}
+          f:schedulerName: {}
+          f:securityContext:
+            .: {}
+            f:fsGroup: {}
+            f:runAsUser: {}
+          f:subdomain: {}
+          f:terminationGracePeriodSeconds: {}
+          f:volumes:
+            .: {}
+            k:{"name":"elasticsearch-certs"}:
+              .: {}
+              f:name: {}
+              f:secret:
+                .: {}
+                f:defaultMode: {}
+                f:secretName: {}
+            k:{"name":"elasticsearch-master"}:
+              .: {}
+              f:name: {}
+              f:persistentVolumeClaim:
+                .: {}
+                f:claimName: {}
+            k:{"name":"esconfig"}:
+              .: {}
+              f:configMap:
+                .: {}
+                f:defaultMode: {}
+                f:name: {}
+              f:name: {}
+    - manager: kube-scheduler
+      operation: Update
+      apiVersion: v1
+      time: '2024-01-08T13:23:43Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:conditions:
+            .: {}
+            k:{"type":"PodScheduled"}:
+              .: {}
+              f:lastProbeTime: {}
+              f:lastTransitionTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+      subresource: status
+    - manager: kubelet
+      operation: Update
+      apiVersion: v1
+      time: '2024-01-08T13:24:34Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:conditions:
+            k:{"type":"ContainersReady"}:
+              .: {}
+              f:lastProbeTime: {}
+              f:lastTransitionTime: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Initialized"}:
+              .: {}
+              f:lastProbeTime: {}
+              f:lastTransitionTime: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Ready"}:
+              .: {}
+              f:lastProbeTime: {}
+              f:lastTransitionTime: {}
+              f:status: {}
+              f:type: {}
+          f:containerStatuses: {}
+          f:hostIP: {}
+          f:initContainerStatuses: {}
+          f:phase: {}
+          f:podIP: {}
+          f:podIPs:
+            .: {}
+            k:{"ip":"10.244.0.81"}:
+              .: {}
+              f:ip: {}
+          f:startTime: {}
+      subresource: status
+  selfLink: /api/v1/namespaces/default/pods/elasticsearch-master-0
+status:
+  phase: Running
+  conditions:
+    - type: Initialized
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2024-01-08T13:23:45Z'
+    - type: Ready
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2024-01-08T13:24:34Z'
+    - type: ContainersReady
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2024-01-08T13:24:34Z'
+    - type: PodScheduled
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2024-01-08T13:23:44Z'
+  hostIP: 192.168.49.2
+  podIP: 10.244.0.81
+  podIPs:
+    - ip: 10.244.0.81
+  startTime: '2024-01-08T13:23:44Z'
+  initContainerStatuses:
+    - name: configure-sysctl
+      state:
+        terminated:
+          exitCode: 0
+          reason: Completed
+          startedAt: '2024-01-08T13:23:45Z'
+          finishedAt: '2024-01-08T13:23:45Z'
+          containerID: >-
+            docker://5a436c9b1c8e80ebcf46fbb06c15eb01a18f6b75f33d26e2c987b2eb82312266
+      lastState: {}
+      ready: true
+      restartCount: 0
+      image: docker.elastic.co/elasticsearch/elasticsearch:8.5.1
+      imageID: >-
+        docker-pullable://docker.elastic.co/elasticsearch/elasticsearch@sha256:d784066422aec9f66ae424f692d2416057e78853ab015915a04530570c955cc8
+      containerID: >-
+        docker://5a436c9b1c8e80ebcf46fbb06c15eb01a18f6b75f33d26e2c987b2eb82312266
+      started: false
+  containerStatuses:
+    - name: elasticsearch
+      state:
+        running:
+          startedAt: '2024-01-08T13:23:45Z'
+      lastState: {}
+      ready: true
+      restartCount: 0
+      image: docker.elastic.co/elasticsearch/elasticsearch:8.5.1
+      imageID: >-
+        docker-pullable://docker.elastic.co/elasticsearch/elasticsearch@sha256:d784066422aec9f66ae424f692d2416057e78853ab015915a04530570c955cc8
+      containerID: >-
+        docker://a506befe895413a69fb8368df93c1483cc56d5757b58d1fc8251458a38949321
+      started: true
+  qosClass: Burstable
+spec:
+  volumes:
+    - name: elasticsearch-master
+      persistentVolumeClaim:
+        claimName: elasticsearch-master-elasticsearch-master-0
+    - name: esconfig
+      configMap:
+        name: elasticsearch-master-config
+        defaultMode: 420
+    - name: elasticsearch-certs
+      secret:
+        secretName: elasticsearch-master-certs
+        defaultMode: 420
+    - name: kube-api-access-6hk6h
+      projected:
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              name: kube-root-ca.crt
+              items:
+                - key: ca.crt
+                  path: ca.crt
+          - downwardAPI:
+              items:
+                - path: namespace
+                  fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+        defaultMode: 420
+  initContainers:
+    - name: configure-sysctl
+      image: docker.elastic.co/elasticsearch/elasticsearch:8.5.1
+      command:
+        - sysctl
+        - '-w'
+        - vm.max_map_count=262144
+      resources: {}
+      volumeMounts:
+        - name: kube-api-access-6hk6h
+          readOnly: true
+          mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      imagePullPolicy: IfNotPresent
+      securityContext:
+        privileged: true
+        runAsUser: 0
+  containers:
+    - name: elasticsearch
+      image: docker.elastic.co/elasticsearch/elasticsearch:8.5.1
+      ports:
+        - name: http
+          containerPort: 9200
+          protocol: TCP
+        - name: transport
+          containerPort: 9300
+          protocol: TCP
+      env:
+        - name: node.name
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: cluster.initial_master_nodes
+          value: >-
+            elasticsearch-master-0,elasticsearch-master-1,elasticsearch-master-2,
+        - name: node.roles
+          value: >-
+            master,data,data_content,data_hot,data_warm,data_cold,ingest,ml,remote_cluster_client,transform,
+        - name: discovery.seed_hosts
+          value: elasticsearch-master-headless
+        - name: cluster.name
+          value: elasticsearch
+        - name: network.host
+          value: 0.0.0.0
+        - name: ELASTIC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: elasticsearch-master-credentials
+              key: password
+        - name: ES_JAVA_OPTS
+          value: '-Xmx128m -Xms128m'
+        - name: xpack.security.enabled
+          value: 'true'
+        - name: xpack.security.transport.ssl.enabled
+          value: 'true'
+        - name: xpack.security.http.ssl.enabled
+          value: 'true'
+        - name: xpack.security.transport.ssl.verification_mode
+          value: certificate
+        - name: xpack.security.transport.ssl.key
+          value: /usr/share/elasticsearch/config/certs/tls.key
+        - name: xpack.security.transport.ssl.certificate
+          value: /usr/share/elasticsearch/config/certs/tls.crt
+        - name: xpack.security.transport.ssl.certificate_authorities
+          value: /usr/share/elasticsearch/config/certs/ca.crt
+        - name: xpack.security.http.ssl.key
+          value: /usr/share/elasticsearch/config/certs/tls.key
+        - name: xpack.security.http.ssl.certificate
+          value: /usr/share/elasticsearch/config/certs/tls.crt
+        - name: xpack.security.http.ssl.certificate_authorities
+          value: /usr/share/elasticsearch/config/certs/ca.crt
+      resources:
+        limits:
+          cpu: '1'
+          memory: 1G
+        requests:
+          cpu: 100m
+          memory: 1G
+      volumeMounts:
+        - name: elasticsearch-master
+          mountPath: /usr/share/elasticsearch/data
+        - name: elasticsearch-certs
+          readOnly: true
+          mountPath: /usr/share/elasticsearch/config/certs
+        - name: esconfig
+          mountPath: /usr/share/elasticsearch/config/elasticsearch.yml
+          subPath: elasticsearch.yml
+        - name: kube-api-access-6hk6h
+          readOnly: true
+          mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      readinessProbe:
+        exec:
+          command:
+            - bash
+            - '-c'
+            - >
+              set -e
+
+
+              # Exit if ELASTIC_PASSWORD in unset
+
+              if [ -z "${ELASTIC_PASSWORD}" ]; then
+                echo "ELASTIC_PASSWORD variable is missing, exiting"
+                exit 1
+              fi
+
+
+              # If the node is starting up wait for the cluster to be ready
+              (request params: "wait_for_status=yellow&timeout=5s" )
+
+              # Once it has started only check that the node itself is
+              responding
+
+              START_FILE=/tmp/.es_start_file
+
+
+              # Disable nss cache to avoid filling dentry cache when calling
+              curl
+
+              # This is required with Elasticsearch Docker using nss < 3.52
+
+              export NSS_SDB_USE_CACHE=no
+
+
+              http () {
+                local path="${1}"
+                local args="${2}"
+                set -- -XGET -s
+
+                if [ "$args" != "" ]; then
+                  set -- "$@" $args
+                fi
+
+                set -- "$@" -u "elastic:${ELASTIC_PASSWORD}"
+
+                curl --output /dev/null -k "$@" "https://127.0.0.1:9200${path}"
+              }
+
+
+              if [ -f "${START_FILE}" ]; then
+                echo 'Elasticsearch is already running, lets check the node is healthy'
+                HTTP_CODE=$(http "/" "-w %{http_code}")
+                RC=$?
+                if [[ ${RC} -ne 0 ]]; then
+                  echo "curl --output /dev/null -k -XGET -s -w '%{http_code}' \${BASIC_AUTH} https://127.0.0.1:9200/ failed with RC ${RC}"
+                  exit ${RC}
+                fi
+                # ready if HTTP code 200, 503 is tolerable if ES version is 6.x
+                if [[ ${HTTP_CODE} == "200" ]]; then
+                  exit 0
+                elif [[ ${HTTP_CODE} == "503" && "8" == "6" ]]; then
+                  exit 0
+                else
+                  echo "curl --output /dev/null -k -XGET -s -w '%{http_code}' \${BASIC_AUTH} https://127.0.0.1:9200/ failed with HTTP code ${HTTP_CODE}"
+                  exit 1
+                fi
+
+              else
+                echo 'Waiting for elasticsearch cluster to become ready (request params: "wait_for_status=yellow&timeout=5s" )'
+                if http "/_cluster/health?wait_for_status=yellow&timeout=5s" "--fail" ; then
+                  touch ${START_FILE}
+                  exit 0
+                else
+                  echo 'Cluster is not yet ready (request params: "wait_for_status=yellow&timeout=5s" )'
+                  exit 1
+                fi
+              fi
+        initialDelaySeconds: 10
+        timeoutSeconds: 5
+        periodSeconds: 10
+        successThreshold: 3
+        failureThreshold: 3
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      imagePullPolicy: IfNotPresent
+      securityContext:
+        capabilities:
+          drop:
+            - ALL
+        runAsUser: 1000
+        runAsNonRoot: true
+  restartPolicy: Always
+  terminationGracePeriodSeconds: 120
+  dnsPolicy: ClusterFirst
+  serviceAccountName: default
+  serviceAccount: default
+  automountServiceAccountToken: true
+  nodeName: minikube
+  securityContext:
+    runAsUser: 1000
+    fsGroup: 1000
+  hostname: elasticsearch-master-0
+  subdomain: elasticsearch-master-headless
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - elasticsearch-master
+            topologyKey: kubernetes.io/hostname
+  schedulerName: default-scheduler
+  tolerations:
+    - key: node.kubernetes.io/not-ready
+      operator: Exists
+      effect: NoExecute
+      tolerationSeconds: 300
+    - key: node.kubernetes.io/unreachable
+      operator: Exists
+      effect: NoExecute
+      tolerationSeconds: 300
+  priority: 0
+  enableServiceLinks: true
+  preemptionPolicy: PreemptLowerPriority
