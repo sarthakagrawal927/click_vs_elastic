@@ -1,42 +1,35 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: es-node
+  name: node1
   labels:
-    component: es-node
-    role: master
+    component: node1
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      component: es-node
+      component: node1
   template:
     metadata:
       labels:
-        component: es-node
+        component: node1
     spec:
       containers:
         - env:
             - name: ES_JAVA_OPTS
               value: -Xms512m -Xmx512m
-            - name: NUMBER_OF_MASTERS
-              value: "3"
-            - name: node.master
-              value: "true" # This line specifies that the node is a master node
-            - name: node.data
-              value: "false"
-            - name: CLUSTER_NAME
+            - name: "NUMBER_OF_MASTERS"
+              value: 1
+            - name: cluster.name
               value: es-docker-cluster
             - name: discovery.seed_hosts
-              value: es-node
-            - name: cluster.initial_master_nodes
-              value: "es-node-0,es-node-1,es-node-2"
+              value: node1
             - name: node.name
-              value: es-node
+              value: node1
             - name: xpack.security.enabled
               value: "false"
           image: docker.elastic.co/elasticsearch/elasticsearch:8.6.2
-          name: es-node
+          name: node1
           volumeMounts:
             - name: es-pvc
               mountPath: /usr/share/elasticsearch/data

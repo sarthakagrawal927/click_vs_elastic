@@ -1,14 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: elasticsearch-local
   name: node1
 spec:
   type: LoadBalancer
   selector:
     component: node1
   ports:
-    - port: 9200  # Port exposed on nodes
-      targetPort: 9200  # Port of the Elasticsearch pods
+    - port: 9200 # Port exposed on nodes
+      targetPort: 9200 # Port of the Elasticsearch pods
       protocol: TCP
-
