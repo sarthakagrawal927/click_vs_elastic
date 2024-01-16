@@ -18,24 +18,20 @@ spec:
       containers:
         - env:
             - name: ES_JAVA_OPTS
-              value: -Xms512m -Xmx512m
+              value: "-Xms512m -Xmx512m"
             - name: NUMBER_OF_MASTERS
               value: "3"
-            - name: node.master
-              value: "true" # This line specifies that the node is a master node
-            - name: node.data
-              value: "false"
+            - name: discovery.seed_hosts
+              value: "es-node.es-node-0, es-node.es-node-1, es-node.es-node-2"
+            - name: cluster.initial_master_nodes
+              value: "es-node.es-node-0, es-node.es-node-1, es-node.es-node-2"
             - name: CLUSTER_NAME
               value: es-docker-cluster
-            - name: discovery.seed_hosts
-              value: es-node
-            - name: cluster.initial_master_nodes
-              value: "es-node-0,es-node-1,es-node-2"
-            - name: node.name
-              value: es-node
+            - name: node.roles
+              value: "[master]"
             - name: xpack.security.enabled
               value: "false"
-          image: docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+          image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
           name: es-node
           volumeMounts:
             - name: es-pvc
