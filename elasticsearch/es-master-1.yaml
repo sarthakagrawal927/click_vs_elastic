@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: es-node
   labels:
-    component: es-node
+    component: stateful-set-label
 spec:
   replicas: 3
   selector:

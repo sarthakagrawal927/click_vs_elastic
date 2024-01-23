@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: es-headless-service
   labels:
-    component: es-node
+    component: headless-service-label
 spec:
   clusterIP: None
   selector:
-    component: es-node
+    component: stateful-set-label
   ports:
     - port: 9300
       name: es-transport

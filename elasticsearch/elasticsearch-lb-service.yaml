@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: node1
+  name: exposed-node-port
 spec:
   type: NodePort
   selector:
-    component: es-node
+    component: es-node # label of pods
   ports:
     - port: 9200 # Port exposed on nodes
       targetPort: 9200 # Port of the Elasticsearch pods
+      nodePort: 30007 # Fixing Port exposed externally, NGINX helps us use lower ports. NodePort only allows (30000-32767)
       protocol: TCP
