@@ -4,7 +4,6 @@ metadata:
   name: es-node
   labels:
     component: es-node
-    role: master
 spec:
   replicas: 3
   selector:
@@ -22,9 +21,9 @@ spec:
             - name: NUMBER_OF_MASTERS
               value: "3"
             - name: discovery.seed_hosts
-              value: "es-node-0, es-node-1, es-node-2"
-            # - name: cluster.initial_master_nodes
-            #   value: "es-node-0"
+              value: es-headless-service # add service name in seed hosts
+            - name: cluster.initial_master_nodes
+              value: "es-node-0,es-node-1,es-node-2"
             - name: CLUSTER_NAME
               value: es-docker-cluster
             - name: node.roles

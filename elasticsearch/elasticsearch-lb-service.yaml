@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: node1
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     component: es-node
   ports:
