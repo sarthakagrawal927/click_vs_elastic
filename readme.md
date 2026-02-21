@@ -1,90 +1,89 @@
-# Clickhouse vs ElasticSearch
+# ClickHouse vs Elasticsearch Ingestion Benchmark
 
-## Setup
+A Go benchmark project comparing bulk ingestion throughput between ClickHouse and Elasticsearch.
+
+## What Is Benchmarked
+
+`main.go` runs three ingestion paths:
+
+1. ClickHouse bulk insert (`pkg/clickhouse`)
+2. Elasticsearch bulk insert with official bulk indexer (`pkg/es/index.go`)
+3. Elasticsearch bulk insert via raw HTTP `_bulk` (`pkg/es/v2.go`)
+
+Workload constants (`pkg/constants/index.go`):
+
+- `BATCH_SIZE = 5000`
+- `NUM_BATCHES = 2000`
+
+Target scale is roughly 10M records.
+
+## Prerequisites
+
+- Go 1.21+
+- Docker
+- ClickHouse running at `127.0.0.1:9000`
+- Elasticsearch running at `127.0.0.1:9210` (as used by code)
+
+## Local Setup
+
+### 1) Start ClickHouse
+
+```bash
+docker run -d --name clickhouse \
+  -p 9000:9000 -p 8123:8123 \
+  clickhouse/clickhouse-server:23.8
+```
+
+Create DB + table:
+
+```sql
+CREATE DATABASE IF NOT EXISTS fp;
+
+CREATE TABLE fp.index_test (
+  id String DEFAULT generateUUIDv4(),
+  name String,
+  age UInt8,
+  height Float32,
+  weight Float32,
+  is_active UInt8
+) ENGINE = MergeTree()
+ORDER BY id;
+```
+
+### 2) Start Elasticsearch
+
+```bash
+docker run --rm --name elastic \
+  -p 9210:9200 \
+  -e "discovery.type=single-node" \
+  -e "xpack.security.enabled=false" \
+  docker.elastic.co/elasticsearch/elasticsearch:8.8.0
+```
+
+Note: `compose.yaml` is available for multi-node experiments, but code defaults to `127.0.0.1:9210`.
+
+### 3) Run benchmark
 
 ```bash
 go mod download
-go run *.go
+go run .
 ```
 
-## Clickhouse
-
-[QuickStart](https://clickhouse.com/docs/en/getting-started/quick-start)
-
-Creating Tables:
-
-```sql
-create database if not exists fp;
-
-create table fp.index_test (
-    id String default generateUUIDv4() PRIMARY KEY,
-    name String,
-    age UInt8,
-    height Float32,
-    weight Float32,
-    is_active UInt8,
-) engine = MergeTree()
-```
-
-## ES
+## Useful Validation Commands
 
 ```bash
-docker run --rm --name elasticsearch_container -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "xpack.security.enabled=false" elasticsearch:8.8.0
+curl 'http://127.0.0.1:9210/test_index/_count?pretty=true&q=*%3A*'
+docker stats
 ```
 
-Cluster Mode:
-```bash
-docker-compose up
-```
+## Current Observations
 
-[Track Writes node wise](http://localhost:9200/_cat/thread_pool/write?v)
+- ClickHouse path batches directly via prepared inserts
+- ES bulk indexer flush behavior differs from ClickHouse batching model
+- At high parallelism, Elasticsearch may require tuning (TCP buffers, file descriptors, connection limits)
 
-Stats:
-```bash
-docker stats node1 node2 node3
-```
+## Next Improvements
 
-Rest Endpoints:
-
-To Count
-
-```bash
-curl --location 'http://localhost:9200/test_index/_count?pretty=true&q=*%3A*' \
---header 'Cookie: lang=en-US'
-```
-
-## Right now:
-
-Clickhouse client sends the batch request every time I want to insert a new batch, whereas ES client sends the batch request only when either the batch size is reached or flush time is reached. Because of which it is hard to predict.
-
-Result:
-For inserting 10mil docs.
-```go
-const BATCH_SIZE = 5000
-const NUM_BATCHES = 2000
-```
-
-Output:
-```
-[CLICKHOUSE] bulkInsertMany took 6.715145208s
-Successfully indexed [9,933,450] documents in 56.973s (174,353 docs/sec)
-[ES] bulkInsertMany took 56.960981709s
-```
-
-ES Peaks at 200k docs/sec, whereas Clickhouse peaks at 1.7mil docs/sec.
-
-
-## Considerations
-- ES is running on a single node. Will need to study more on Clickhouse's architecture.
-- Clickhouse table is MergeTree engine mode, log based engine mode might be better for this use case. Need to look into other engines as well.
-- ES is not sending batch request every time unlike clickhouse. Thus net doc indexes is little less than 10m.
-
-
-2000 requests in parallel is too much for ES to handle. For 5000 * 20 packets it takes:
-
-```
-[CLICKHOUSE] bulkInsertMany took 179.392625ms
-[ES W/O Library] bulkInsertMany took 637.056208ms
-```
-
-Going higher was causing issues in ES due to TCP Buffer size & connection limit. It ended up making ES unresponsive for the main port. [More Info](https://chat.openai.com/share/4fa92809-5cfa-4b00-81f8-be157ab9fe2b)
+- Parameterize batch size/worker count via flags
+- Standardize flush strategy for fairer A/B comparison
+- Persist benchmark runs and produce repeatable reports
