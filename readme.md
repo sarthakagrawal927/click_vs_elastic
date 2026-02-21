@@ -1,5 +1,8 @@
 # ClickHouse vs Elasticsearch Ingestion Benchmark
 
+![AI Generated](https://ai-percentage-pin.vercel.app/api/ai-percentage?value=20)
+![AI PRs Welcome](https://ai-percentage-pin.vercel.app/api/ai-prs?welcome=yes)
+
 A Go benchmark project comparing bulk ingestion throughput between ClickHouse and Elasticsearch.
 
 ## What Is Benchmarked
